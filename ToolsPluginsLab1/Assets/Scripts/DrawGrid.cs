@@ -1,17 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawGrid : MonoBehaviour
+public class DrawGridUsingLoops : MonoBehaviour
 {
-#if UNITY_EDITOR
-    [SerializeField]
-    Vector3[] points;
+    public int gridSize = 8;  
+    public float cellSize = 1f;  
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawLineList(points);
+
+        // Draw horizontal lines
+        for (int y = 0; y <= gridSize; y++)
+        {
+            Vector3 startPos = new Vector3(0, y * cellSize, 0);
+            Vector3 endPos = new Vector3(gridSize * cellSize, y * cellSize, 0);
+            Gizmos.DrawLine(startPos, endPos);
+        }
+
+        // Draw vertical lines
+        for (int x = 0; x <= gridSize; x++)
+        {
+            Vector3 startPos = new Vector3(x * cellSize, 0, 0);
+            Vector3 endPos = new Vector3(x * cellSize, gridSize * cellSize, 0);
+            Gizmos.DrawLine(startPos, endPos);
+        }
     }
-#endif
 }
