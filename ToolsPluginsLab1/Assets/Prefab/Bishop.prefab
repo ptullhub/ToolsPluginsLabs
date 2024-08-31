@@ -200,6 +200,7 @@ MonoBehaviour:
   - {fileID: 921434277693821797}
   - {fileID: 6603233378732518236}
   - {fileID: 7024413408004638680}
+  lineColor: {r: 0.07578874, g: 1, b: 0, a: 0}
 --- !u!114 &-1731751710026665113
 MonoBehaviour:
   m_ObjectHideFlags: 0
