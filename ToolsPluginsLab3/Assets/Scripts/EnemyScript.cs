@@ -45,7 +45,6 @@ public class EnemyScript : MonoBehaviour
     {
         if (target != null)
         {
-            // Compensate for player movement by rotating around the initial position plus the offset
             transform.RotateAround(target.position, Vector3.forward, adjustedSpeed * Time.deltaTime);
         }
     }
