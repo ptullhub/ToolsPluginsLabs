@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public GameObject player;
+
     [SerializeField] private GameObject targetPrefab;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private int totalScore;
@@ -18,10 +20,20 @@ public class GameManager : MonoBehaviour
     Target mediumTargetBuild;
     Target largeTargetBuild;
 
+    private ISaveable scoreSaveSystem;
+    private JsonSaveSystem positionSaveSystem;
+
+    private void Awake()
+    {
+        LoadGame();
+    }
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+
+        totalScore = scoreSaveSystem.Load();
+        scoreText.text = $"Score: {totalScore}";
 
         MovingTarget.OnTargetDestroyed += IncrementScore;
 
@@ -68,5 +80,41 @@ public class GameManager : MonoBehaviour
     {
         totalScore += score;
         scoreText.text = $"Score: {totalScore}";
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
+    private void SaveGame()
+    {
+        Vector3 playerPosition = player.transform.position;
+
+        List<Vector3> enemyPositions = new List<Vector3>();
+        foreach (var enemy in FindObjectsOfType<MovingTarget>())
+        {
+            enemyPositions.Add(enemy.transform.position);
+        }
+
+        positionSaveSystem.Save(playerPosition, enemyPositions);
+        scoreSaveSystem.Save(totalScore);
+    }
+
+    private void LoadGame()
+    {
+        scoreSaveSystem = new ScoreSaveSystem();
+        positionSaveSystem = new JsonSaveSystem();
+
+        JsonSaveData data = positionSaveSystem.Load();
+        if (data != null)
+        {
+            player.transform.position = data.playerPosition.position;
+
+            foreach (var enemyPos in data.enemyPositions)
+            {
+                GameObject enemy = Instantiate(targetPrefab, enemyPos.position, Quaternion.identity);
+            }
+        }
     }
 }

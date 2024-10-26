@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff538c79a05a4c4ba604f2b8c28a905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1774512240}
   targetPrefab: {fileID: 6657684256188203458, guid: fb9d1c0843ee7e34681975f872074171, type: 3}
   scoreText: {fileID: 656761666}
   totalScore: 0
@@ -1454,6 +1455,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1774512240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7736331477733369772, guid: 72dc3c7a494382147a0fc9a8bd5c3212, type: 3}
+  m_PrefabInstance: {fileID: 8604541735522013937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1803791819 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5291552175430475831, guid: d77df8da3fa47bb45b0bfd6503aa9c07, type: 3}
